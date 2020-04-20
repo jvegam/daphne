@@ -1,0 +1,28 @@
+# FMC driver configuration options
+
+# Copyright (c) 2020 Juan Vega <juan.vega25@gmail.com>
+# SPDX-License-Identifier: Apache-2.0
+
+#
+# FMC Drivers
+#
+menuconfig FMC
+	bool "FMC hardware bus support"
+	help
+	  Enable support for the FMC hardware bus.
+
+if FMC
+
+config FMC_INIT_PRIORITY
+	int "Init priority"
+	default 48
+	help
+	  Device driver initialization priority.
+
+module = FMC
+module-str = fmc
+source "subsys/logging/Kconfig.template.log_config"
+
+source "drivers/fmc/Kconfig.stm32"
+
+endif # FMC

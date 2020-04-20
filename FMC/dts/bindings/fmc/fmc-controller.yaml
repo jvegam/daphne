@@ -1,0 +1,24 @@
+# Copyright (c) 2020, Juan Vega <juan.vega25@gmail.com>
+# SPDX-License-Identifier: Apache-2.0
+
+include: base.yaml
+
+bus: fmc
+
+properties:
+    sram-handle-enable :
+      type: array
+      required: true
+      description: Enable SRAM handle	
+    data-width :
+      type: int
+      required: true
+      description: Bus width 8, 16 or 32 bits
+    address-width :
+      type: int
+      required: true
+      description: Address width Max 26 bits
+    async-wait-enable :
+      type: array
+      required: true
+      description: Enable nwait signal out 0 or 1
