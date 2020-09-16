@@ -18,7 +18,7 @@
 
 ## BOOTLOADER
   - Implement a Bootloader in the Nucleo-STM32H743ZI
-
+ 
 # SOFTWARE
    [STM32cube IDE Editor]: <https://www.st.com/en/development-tools/stm32cubeide.html>
    [Vivado Desing Suite]: <https://www.xilinx.com/products/design-tools/vivado.html>
