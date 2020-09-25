@@ -9,7 +9,7 @@
 ---
 ### Board Development Adapter
 #### Schematic
-![](https://github.com/jvegam/daphne/blob/master/daphne_initialconf/Hardware/InterconnectBoard_Schematic.png=480*240
+![](https://github.com/jvegam/daphne/blob/master/daphne_initialconf/Hardware/InterconnectBoard_Schematic.png
 ) 
 
 #### Layout
