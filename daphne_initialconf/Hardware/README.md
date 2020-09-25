@@ -9,12 +9,12 @@
 ---
 ### Board Development Adapter
 #### Schematic
-![](https://github.com/jvegam/daphne/blob/origin/daphne_initialconf/hardware/InterconnectBoard_Schematic.png
+![](https://github.com/jvegam/daphne/blob/master/daphne_initialconf/Hardware/InterconnectBoard_Schematic.png=480*240
 ) 
 
 #### Layout
-![](https://github.com/jvegam/daphne/blob/origin/daphne_initialconf/hardware/NUCLEOH743ZI_IB_Top.JPG
+![](https://github.com/jvegam/daphne/blob/master/daphne_initialconf/Hardware/NUCLEOH743ZI_IB_Top.JPG
 ) 
 
-![](https://github.com/jvegam/daphne/blob/origin/daphne_initialconf/hardware/NUCLEOH743ZI_IB_Bottom.JPG
+![](https://github.com/jvegam/daphne/blob/master/daphne_initialconf/Hardware/NUCLEOH743ZI_IB_Bottom.JPG
 )
