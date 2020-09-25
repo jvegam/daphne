@@ -2,7 +2,7 @@
 
 The project implemented the Slow control for the Daphne Board.
 ## Block diagram:
-![](https://github.com/jvegam/daphne/blob/origin/slowcontrol.svg
+![](https://github.com/jvegam/daphne/blob/master/slowcontrol.svg
 ) 
 ## Functions:
  - OPCUA Server
