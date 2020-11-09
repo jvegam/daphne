@@ -1,3 +1,12 @@
+/**
+  ******************************************************************************
+  * @file    SI5338.h
+  * @author  Daphne Microcontroller Team
+  *          Juan Vega Martinez
+  * @brief   Header file of AFE HAL module.
+  ******************************************************************************
+  */
+
 //Register map for use with AN428 (JumpStart)
 //http://www.silabs.com/clocks 
 //#BEGIN_HEADER
