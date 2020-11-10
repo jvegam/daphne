@@ -50,7 +50,7 @@ typedef struct
 
 
 //static
-void AFE_init (AFE_HandleTypeDef *hspi);
+void AFE_init (AFE_HandleTypeDef *hAFE);
 HAL_StatusTypeDef AFE_Write_16b   (AFE_HandleTypeDef *hAFE, uint16_t pAddress);
 HAL_StatusTypeDef AFE_Read_16b    (AFE_HandleTypeDef *hAFE, uint16_t pAddress);
 HAL_StatusTypeDef TRIM_Write_32b  (AFE_HandleTypeDef *hAFE, uint32_t pAddress);

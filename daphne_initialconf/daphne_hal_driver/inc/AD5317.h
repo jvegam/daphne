@@ -52,17 +52,23 @@ typedef struct
   AD5317_CommonCTRL_TypeDef *CommonCTRL;
 }AD5317_TypeDef;
 
+/*****************  Bit definition for AD5317_REG register  ******************/
+#define AD5317_REG_BUFFERED_REF_Pos               (12U)
+#define AD5317_REG_BUFFERED_REF_Msk               (0x1UL << AD5317_REG_BUFFERED_REF_Pos) /*!< 0x00000001 */
+#define AD5317_REG_BUFFERED_REF                   AD5317_REG_BUFFERED_REF_Msk
 
-#define UNBUFFERED_REF (0<<12) 
-#define BUFFERED_REF   (1<<12)
+#define AD5317_REG_GAIN_Pos                       (13U)
+#define AD5317_REG_GAIN_Msk                       (0x1UL << AD5317_REG_GAIN_Pos)         /*!< 0x00000000 */
+#define AD5317_REG_GAIN                           AD5317_REG_GAIN_Msk
+#define AD5317_REG_GAIN_1                         (0x0UL << AD5317_REG_GAIN_Pos)         /*!< 0x00000000 */
+#define AD5317_REG_GAIN_2                         (0x1UL << AD5317_REG_GAIN_Pos)         /*!< 0x00000000 */
 
-#define GAIN_1 (0<<13) 
-#define GAIN_2 (1<<13)
-
-#define DAC_A (0<<14)
-#define DAC_B (1<<14)
-#define DAC_C (2<<14)
-#define DAC_D (3<<14)
-
+#define AD5317_REG_DAC_SELECT_Pos                 (14U)
+#define AD5317_REG_DAC_SELECT_Msk                 (0x3UL << AD5317_REG_DAC_SELECT_Pos)         /*!< 0x00000000 */
+#define AD5317_REG_DAC_SELECT                     AD5317_REG_DAC_SELECT_Msk
+#define AD5317_REG_DAC_SELECT_CHA                 (0x0UL << AD5317_REG_DAC_SELECT_Pos)         /*!< 0x00000000 */
+#define AD5317_REG_DAC_SELECT_CHB                 (0x1UL << AD5317_REG_DAC_SELECT_Pos)         /*!< 0x00000000 */
+#define AD5317_REG_DAC_SELECT_CHC                 (0x2UL << AD5317_REG_DAC_SELECT_Pos)         /*!< 0x00000000 */
+#define AD5317_REG_DAC_SELECT_CHD                 (0x3UL << AD5317_REG_DAC_SELECT_Pos)         /*!< 0x00000000 */
 
 #endif

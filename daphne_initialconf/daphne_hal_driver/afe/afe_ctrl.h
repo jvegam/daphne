@@ -29,10 +29,12 @@ extern "C" {
 
   
 typedef struct 
-{
+{ 
+  AFEREGS_TypeDef reg;
   bool Enable;
   uint16_t Gain;     
   uint16_t Bias_set;
+  uint16_t Bias_mon;
   bool Powerdown;
   bool Reset;
 }AFE_TypeDef;
