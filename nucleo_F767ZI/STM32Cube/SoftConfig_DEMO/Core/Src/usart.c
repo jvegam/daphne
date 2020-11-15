@@ -164,11 +164,14 @@ void USART3_UART_RX_ISR(void) {
 	dataUART3 = U3RXBUFF[0];
 	if (dataUART3 == CHAR_NULL) {
 		__NOP();
+	} else if (dataUART3 == CR) { // nothing to do, omit CR character
+		__NOP();
 	} else if (dataUART3 == _CTR_CHAR_USART3) { // control character arrived to USART3
 		// verify if it is necessary to add this data to the queue
 		// Fifo_Rx3_Put(dataUART3);
 		fl_usart3_rx = TRUE; // there is an serial interrupt to be attended
 	} else { // if ((datoSCI >= 0x65 && datoSCI <= 0x69) || (datoSCI >= 0x30 && datoSCI <= 0x39)) { // valid characters to the payload
+
 		if (!Fifo_Rx3_Put(dataUART3)) {
 			Fifo_Rx3_Init();
 		}

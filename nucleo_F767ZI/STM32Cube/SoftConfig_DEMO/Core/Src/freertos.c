@@ -31,6 +31,7 @@
 /* USER CODE BEGIN Includes */
 #include "string.h"
 #include "stdio.h"
+#include "cmdsFile.h"
 
 /* USER CODE END Includes */
 
@@ -54,6 +55,8 @@ uint8_t ValAdcPrint[7];
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+uint8_t getVerFl = FALSE;
+uint8_t blinkLedFl = FALSE;
 
 /* USER CODE END PM */
 
@@ -190,14 +193,14 @@ void taskLed2(void *arg) {
 		// blink the LED 2 every 1 sec.
 		HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, led2State);
 
-		pDataTx = datoPruebaTx;
-		pDataRx = datoPruebaRx;
-		while ((*pDataTx != 0) && (Fifo_Tx3_Put(*pDataTx))) {
-			pDataTx++;
-		}
-		if (Fifo_Tx3_Get(pDataRx) == 1) {
-			USART3_UART_SendChar(pDataRx);
-		}
+		//pDataTx = datoPruebaTx;
+		//pDataRx = datoPruebaRx;
+		//while ((*pDataTx != 0) && (Fifo_Tx3_Put(*pDataTx))) {
+		//	pDataTx++;
+		//}
+		//if (Fifo_Tx3_Get(pDataRx) == 1) {
+		//	USART3_UART_SendChar(pDataRx);
+		//}
 
 		vTaskDelay(1000 / portTICK_PERIOD_MS);
 	}
@@ -258,9 +261,9 @@ void taskSpi1(void *args) {
 			// semaphore by SPI interrupt received
 			HAL_GPIO_WritePin(CS1_GPIO_Port, CS1_Pin, HIGH);
 
-			printf("Data received = ");
-			printf(dataRecv);
-			printf("\n");
+			// printf("Data received = ");
+			// printf(dataRecv);
+			// printf("\n");
 		}
 		vTaskDelay(500);
 	}
@@ -277,7 +280,7 @@ void taskISRAttn(void *arg) {
 	uint8_t dataRec[8];
 	uint8_t *pDaRec;
 
-	fl_adc1_print = TRUE;
+	fl_adc1_print = FALSE;
 
 	USART3_Interrupt_Init();
 
@@ -291,7 +294,7 @@ void taskISRAttn(void *arg) {
 		}
 		if (fl_tim3_per) {
 			fl_tim3_per = FALSE;
-			printf("Semaphore Timer delivered\n");
+			// printf("Semaphore Timer delivered\n");
 			xSemaphoreGive(semaphTimer3);
 			vTaskDelay(10 / portTICK_PERIOD_MS);
 		}
@@ -301,7 +304,7 @@ void taskISRAttn(void *arg) {
 		}
 		if (fl_spi1_isr) {
 			fl_spi1_isr = FALSE;
-			printf("Semaphore SPI delivered\n");
+			// printf("Semaphore SPI delivered\n");
 			xSemaphoreGive(semaphSpi1);
 			vTaskDelay(10 / portTICK_PERIOD_MS);
 		}
@@ -309,6 +312,7 @@ void taskISRAttn(void *arg) {
 			(void) Adc1Ch3_GetValue(&adcValue); // obtain ADC data form buffer
 			fl_adc1_ch3 = FALSE;
 			if (fl_adc1_print) {
+				fl_adc1_print = FALSE;
 				itoa(adcValue, ValAdcPrint, 10);
 				(void) strcat(ValAdcPrint, "\n");
 
@@ -329,14 +333,40 @@ void taskISRAttn(void *arg) {
 
 			pDaRec = dataRec;
 			while (Fifo_Rx3_Get(pDaRec)) {
-				*pDaRec += 1;
+				// *pDaRec += 1;
 				pDaRec++;
 			}
+			*pDaRec = 0;  // erase the last character in text
 
-			pDaRec = dataRec;
+			// Compare data to execute console commands
+			if (strcmp((const char*) gver, (const char*) dataRec) == 0) {
+				// Command  to send software version
+				pDaRec = verResp;
+				vTaskDelay(10 / portTICK_PERIOD_MS);
+			} else if (strcmp((const char*) blkl, (const char*) dataRec) == 0) {
+				// command to blink LED
+				pDaRec = blkResp;
+				xSemaphoreGive(semaphButton1);
+				vTaskDelay(10 / portTICK_PERIOD_MS);
+
+			} else if (strcmp((const char*) adcn, (const char*) dataRec) == 0) {
+				// command to blink LED
+				pDaRec = adcResp;
+				fl_adc1_print = TRUE;
+				vTaskDelay(10 / portTICK_PERIOD_MS);
+
+			} else {
+				// Inform that the command is not recognized
+				pDaRec = failMsg;
+				vTaskDelay(10 / portTICK_PERIOD_MS);
+			}
+
+			// end of comparing
+
+			// pDaRec = dataRec;
 
 			while ((*pDaRec != 0) && (Fifo_Tx3_Put(*pDaRec))) {
-				*pDaRec = 0;
+				// *pDaRec = 0;
 				pDaRec++;
 			}
 			pDaRec = dataRec;
